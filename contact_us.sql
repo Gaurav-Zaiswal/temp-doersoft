@@ -1,0 +1,8 @@
+CREATE TABLE contact_us(
+    con_id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(60) NOT NULL,
+    phone VARCHAR(13) NOT NULL,
+    email VARCHAR(60) NOT NULL,
+    title TINYTEXT NOT NULL,
+    msg TEXT NOT NULL
+);
