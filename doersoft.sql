@@ -1,3 +1,15 @@
+CREATE TABLE job_type (
+    jb_type_id INT AUTO_INCREMENT PRIMARY KEY,
+    jb_name VARCHAR(32),
+    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE prod_category (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    cat_name VARCHAR(32),
+    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE career (
     c_id INT AUTO_INCREMENT PRIMARY KEY,
     career_type VARCHAR(3), -- in -> intership, ftj -> full time job, ptj -> parttime job
@@ -23,17 +35,20 @@ CREATE TABLE contact_us(
     msg TEXT NOT NULL
 );
 
+
 CREATE TABLE job_opening(
     job_id INT AUTO_INCREMENT PRIMARY KEY,
+    jb_type_id INT,
     opened_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     job_title VARCHAR(50) NOT NULL,
-    job_type VARCHAR(3), -- in -> intership, ftj -> full time job, ptj -> parttime job
     qualification VARCHAR(20) NOT NULL,
     exp INT,
     req TEXT NOT NULL,
     duty TEXT NOT NULL,
     salary VARCHAR(15),
-    extra_constrain TINYTEXT -- e.g. must know Spanish Lnaguage
+    extra_constrain TINYTEXT, -- e.g. must know Spanish Lnaguage
+    is_open BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY(jb_type_id) REFERENCES job_type(jb_type_id)
 );
 
 CREATE table job_application(
@@ -51,6 +66,7 @@ CREATE table job_application(
 CREATE TABLE product (
     prod_id INT AUTO_INCREMENT PRIMARY KEY,
     client_id INT,
+    category_id INT,
     prod_name VARCHAR(40) NOT NULL, 
     prod_url VARCHAR(50) NOT NULL,
     type_type VARCHAR(30) NOT NULL,
@@ -59,5 +75,6 @@ CREATE TABLE product (
     release_ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     prod_desc TEXT NOT NULL,
     created_on DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY(client_id) REFERENCES client(client_id)
+    FOREIGN KEY(client_id) REFERENCES client(client_id),
+    FOREIGN KEY(category_id) REFERENCES prod_category(category_id)
 );

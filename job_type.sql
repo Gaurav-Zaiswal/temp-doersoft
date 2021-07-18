@@ -1,0 +1,5 @@
+CREATE TABLE job_type (
+    jb_type_id INT AUTO_INCREMENT PRIMARY KEY,
+    jb_type VARCHAR(32),
+    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
